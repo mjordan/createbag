@@ -6,7 +6,7 @@ A simple utility to allow users to create a Bag from a directory on their file s
 
 * Uses standard file/directory picker to allow user to select which directory to create Bag from.
 * BagIt tags can be defined in a config file.
-* The option (set in the config file) to copy the contents of the selected directory to specific location before creating the Bag.
+* The option (set in the config file) to copy the contents of the selected directory to specific location before creating the Bag. Note that since the Bag is created from the copy, checksums are generated for the copies, not the original files.
 
 ## Python dependencies
 
