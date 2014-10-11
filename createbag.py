@@ -7,6 +7,8 @@ Simple tool to create a Bag from a filesystem folder.
 """
 
 import ConfigParser
+import os
+import shutil
 import bagit
 from gi.repository import Gtk
 
@@ -47,14 +49,27 @@ class FolderChooserWindow(Gtk.Window):
         folder_picker_dialog.set_create_folders(False)
 
         response = folder_picker_dialog.run()
-        if config.getboolean('Other', 'add_source_directory_tag'):
-            bagit_tags['Source-Directory'] = folder_picker_dialog.get_filename()
+
         if response == Gtk.ResponseType.OK:
-            bag = bagit.make_bag(folder_picker_dialog.get_filename(), bagit_tags)
+            if config.getboolean('Other', 'add_source_directory_tag'):
+                bagit_tags['Source-Directory'] = folder_picker_dialog.get_filename()
+
+            # If the 'create_bag_in' config option is set, create the Bag from a
+            # copy of the selected folder.
+            if len(config.get('Other', 'create_bag_in')):
+                relativized_picker_path = os.path.relpath(folder_picker_dialog.get_filename(), '/')
+                bag_dir = os.path.join(config.get('Other', 'create_bag_in'), relativized_picker_path)
+                shutil.rmtree(bag_dir, True)
+                shutil.copytree(folder_picker_dialog.get_filename(), bag_dir)
+            # If it's not set, create the Bag in the selected directory.
+            else:
+                bag_dir = folder_picker_dialog.get_filename()
+
+            bag = bagit.make_bag(bag_dir, bagit_tags)
             confirmation_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO,
             Gtk.ButtonsType.OK, "Bag created")
             confirmation_dialog.format_secondary_text(
-                "The Bag for folder %s has been created." % folder_picker_dialog.get_filename())
+                "The Bag for folder %s has been created." % bag_dir)
             confirmation_dialog.run()
             confirmation_dialog.destroy()
         elif response == Gtk.ResponseType.CANCEL:
