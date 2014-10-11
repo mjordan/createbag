@@ -47,6 +47,8 @@ class FolderChooserWindow(Gtk.Window):
         folder_picker_dialog.set_create_folders(False)
 
         response = folder_picker_dialog.run()
+        if config.getboolean('Other', 'add_source_directory_tag'):
+            bagit_tags['Source-Directory'] = folder_picker_dialog.get_filename()
         if response == Gtk.ResponseType.OK:
             bag = bagit.make_bag(folder_picker_dialog.get_filename(), bagit_tags)
             confirmation_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO,
