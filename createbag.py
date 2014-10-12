@@ -1,20 +1,27 @@
 """
-Simple tool to create a Bag from a filesystem folder.
+Simple GUI tool to create a Bag from a filesystem folder.
 
 @todo:
-  - Add error handling around the call to bagit.
-  - Get working on Windows.
+  - Add error handling around the call to bagit and copying
+    into 'create_bag_in' value.
 """
 
 import ConfigParser
+import sys
 import os
 import shutil
 import bagit
 from gi.repository import Gtk
 
+# Get config file location and parse the file.
+if len(sys.argv) > 1:
+    config_file = sys.argv[1]
+else:
+    config_file = './config.cfg'
+
 config = ConfigParser.ConfigParser()
 config.optionxform = str
-config.read('config.cfg')
+config.read(config_file)
 
 # Get tags from config file.
 bagit_tags = {}
@@ -60,7 +67,7 @@ class FolderChooserWindow(Gtk.Window):
         response = folder_picker_dialog.run()
 
         if response == Gtk.ResponseType.OK:
-            if config.getboolean('Other', 'add_source_directory_tag'):
+            if config.getboolean('Other', 'add_source_directory_tag', False):
                 bagit_tags['Source-Directory'] = folder_picker_dialog.get_filename()
 
             # If the 'create_bag_in' config option is set, create the Bag from a

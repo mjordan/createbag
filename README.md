@@ -25,6 +25,10 @@ Invoke the utility from the command line like this:
 
 `python createbag.py`
 
+Create Bag allows you to specify which configuration file to use, as an argument to the script. Run as above, with no argument, the script looks for the file 'config.cfg' in the same directory as the script. To indicate another location for the configuration file, run the script with the file's path as an argument, like this:
+
+`python createbag.py /path/to/config/file`
+
 Clicking on the "Choose a directory to create Bag from" will open up a standard file/directory chooser dialog box. Choose a directory and click on "Create Bag".
 
 ## To do
