@@ -1,6 +1,6 @@
 # Create Bag
 
-A simple utility to allow users to create a Bag from a directory on their file system.
+A simple utility to allow users to create a Bag from a directory on their file system. This utility is not intended as a replacement for the full-featured tool such as the Library of Congress's Bagger (included in their [Transfer Tools](http://sourceforge.net/projects/loc-xferutils/files/loc-bagger/)). Instead, it is intended to hide the details of creating a Bag from a filesystem directory from the end user providing a simple, familiar user interface. Settings for Bag creation are contained in a configuration file (that would be modified by an administrator, for example).
 
 ## Features so far
 
@@ -25,13 +25,13 @@ Invoke the utility from the command line like this:
 
 `python createbag.py`
 
-Create Bag allows you to specify which configuration file to use, as an argument to the script. Run as above, with no argument, the script looks for the file 'config.cfg' in the same directory as the script. To indicate another location for the configuration file, run the script with the file's path as an argument, like this:
+Create Bag allows you to specify which configuration file to use, as an argument to the script. If run as above, with no argument, the script looks for the file 'config.cfg' in the same directory as the script. To indicate another location for the configuration file, run the script with the file's path as an argument, like this:
 
 `python createbag.py /path/to/config/file`
 
-Clicking on the "Choose a directory to create Bag from" will open up a standard file/directory chooser dialog box. Choose a directory and click on "Create Bag".
+You should see a small window with two buttons. Clicking on the "Choose a directory to create Bag from" will open up a standard file/directory chooser dialog box. Choose a directory and click on "Create Bag".
 
 ## To do
 
-* Compile the utility into native Windows, OS X, and Linux binaries, at which point the utility will be invoked like any other Graphical User Interface program on those operating systems.
+* Compile the utility into native Windows, OS X, and Linux binaries, at which point the utility will be invoked like any other Graphical User Interface application on those operating systems.
 * Add better error handling.
