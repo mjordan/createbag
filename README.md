@@ -15,14 +15,15 @@ A simple utility to allow users to create a Bag from a directory on their file s
 
 ## Usage
 
-Until Create Bag is compiled into native binaries, invoke it from the command line like this:
+Invoke the utility from the command line like this:
 
 `python createbag.py`
 
-and click on "Choose a directory to create Bag from" and go. Note that the Bag is created in place, meaning that the directory is replaced with the Bagged version.
+Clicking on the "Choose a directory to create Bag from" will open up a standard file/directory chooser dialog box. Choose a directory and click on "Create Bag".
 
+The goal is to compile the utility into native Windows, OS X, and Linux binaries, at which point the utility will be invoked like any other Graphical User Interface program on those operating systems.
 
 ## To do
 
-* Port to Windows and OS X native binaries
-* Add error handling, etc.
+* Port to Windows, OS X, and Linux native binaries
+* Add better error handling.
