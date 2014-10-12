@@ -1,6 +1,8 @@
 # Create Bag
 
-A simple utility to allow users to create a Bag from a directory on their file system. This utility is not intended as a replacement for the full-featured tool such as the Library of Congress's Bagger (included in their [Transfer Tools](http://sourceforge.net/projects/loc-xferutils/files/loc-bagger/)). Instead, it is intended to hide the details of creating a Bag from a filesystem directory from the end user providing a simple, familiar user interface. Settings for Bag creation are contained in a configuration file (that would be modified by an administrator, for example).
+A simple utility to allow users to create a Bag from a directory on their file system.
+
+This utility is not a replacement for the full-featured tool such as the Library of Congress's Bagger (included in their [Transfer Tools](http://sourceforge.net/projects/loc-xferutils/files/loc-bagger/)). Instead, it is intended to hide the details of creating a Bag from a filesystem directory from the end user providing a simple, familiar user interface. Settings for Bag creation are contained in a configuration file (that would be modified by an administrator, for example).
 
 ## Features so far
 
