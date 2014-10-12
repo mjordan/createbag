@@ -12,7 +12,10 @@ A simple utility to allow users to create a Bag from a directory on their file s
 ## Python dependencies
 
 * [Python GTK+3](http://python-gtk-3-tutorial.readthedocs.org/en/latest/index.html)
+** On Ubuntu Linux, all prerequisites should already be installed. 
+** On Windows, install the latest version from http://sourceforge.net/projects/pygobjectwin32/files/?source=navbar. When asked which packages to install, choose GTK+. No other packages in this distribution are necessary for Create Bag to run.
 * [bagit](https://github.com/LibraryOfCongress/bagit-python)
+** On all platforms, install with `pip install bagit`. 
 
 ## Usage
 
@@ -27,4 +30,4 @@ The goal is to compile the utility into native Windows, OS X, and Linux binaries
 ## To do
 
 * Port to Windows, OS X, and Linux native binaries
-* Add better error handling.
+* Add better error handling
