@@ -31,6 +31,8 @@ Create Bag allows you to specify which configuration file to use, as an argument
 
 You should see a small window with two buttons. Clicking on the "Choose a directory to create Bag from" will open up a standard file/directory chooser dialog box. Choose a directory and click on "Create Bag".
 
+Both Linux and Windows allows the creation of shortcuts, so end users can just doubleclick on an icon to invoke Create Bag.
+
 ## To do
 
 * Compile the utility into native Windows, OS X, and Linux binaries, at which point the utility will be invoked like any other Graphical User Interface application on those operating systems.
