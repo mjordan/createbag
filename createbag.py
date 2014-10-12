@@ -22,6 +22,15 @@ tags = config.options('Tags')
 for tag in tags:
     bagit_tags[tag] = config.get('Tags', tag)
 
+# Get checksum algorithms from config file.
+bagit_checksums = []
+if config.has_option('Checksums', 'algorithms'):
+    checksums_string = config.get('Checksums', 'algorithms', 'md5')
+    bagit_checksums = [algo.strip() for algo in checksums_string.split(',')]
+else:
+    bagit_checksums = ['md5']
+
+
 class FolderChooserWindow(Gtk.Window):
 
     def __init__(self):
@@ -65,7 +74,7 @@ class FolderChooserWindow(Gtk.Window):
             else:
                 bag_dir = folder_picker_dialog.get_filename()
 
-            bag = bagit.make_bag(bag_dir, bagit_tags)
+            bag = bagit.make_bag(bag_dir, bagit_tags, 1, bagit_checksums)
             confirmation_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO,
             Gtk.ButtonsType.OK, "Bag created")
             confirmation_dialog.format_secondary_text(
