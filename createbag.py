@@ -65,7 +65,7 @@ class FolderChooserWindow(Gtk.Window):
 
             # If the 'create_bag_in' config option is set, create the Bag from a
             # copy of the selected folder.
-            if len(config.get('Other', 'create_bag_in')):
+            if config.has_option('Other', 'create_bag_in'):
                 relativized_picker_path = os.path.relpath(folder_picker_dialog.get_filename(), '/')
                 bag_dir = os.path.join(config.get('Other', 'create_bag_in'), relativized_picker_path)
                 shutil.rmtree(bag_dir, True)
