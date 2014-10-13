@@ -59,8 +59,9 @@ class FolderChooserWindow(Gtk.Window):
         box.add(quit_button)
 
     def on_folder_clicked(self, widget):
-        folder_picker_dialog = Gtk.FileChooserDialog("Please choose a folder to create a Bag from", self,
-            Gtk.FileChooserAction.SELECT_FOLDER,
+        folder_picker_dialog = Gtk.FileChooserDialog(
+            config.get('Other', 'file_chooser_window_title', 'Creata a Bag - Choose a folder to create Bag from'),
+            self, Gtk.FileChooserAction.SELECT_FOLDER,
             (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
             "Create Bag", Gtk.ResponseType.OK))
         folder_picker_dialog.set_default_size(800, 400)
