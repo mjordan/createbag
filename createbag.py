@@ -6,6 +6,7 @@ import ConfigParser
 import sys
 import os
 import shutil
+import getpass
 import bagit
 from gi.repository import Gtk
 
@@ -75,6 +76,9 @@ class FolderChooserWindow(Gtk.Window):
         if response == Gtk.ResponseType.OK:
             if config.getboolean('Other', 'add_source_directory_tag'):
                 bagit_tags['Source-Directory'] = folder_picker_dialog.get_filename()
+
+            if config.getboolean('Other', 'add_source_user_id_tag'):
+                bagit_tags['Source-User'] = getpass.getuser()                
 
             # If the 'create_bag_in' config option is set, create the Bag from a
             # copy of the selected folder.

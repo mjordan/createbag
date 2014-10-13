@@ -10,7 +10,8 @@ This utility is not a replacement for full-featured tool such as the Library of 
 * Uses standard Graphical User Interface file/directory browser to allow user to select which directory to create Bag from.
 * Configuration options:
     * Definition of the title of the main application window and the file chooser window title
-    * Definition of BagIt tags
+    * Definition of custom BagIt tags
+    * Options to enable some auto-generated BagIt tags (currently Source-Directory and Source-User)
     * Choice of checksum algorithms (md5, sha1, sha256, and sha512)
     * The option to copy the contents of the selected directory to specific destination directory before creating the Bag. Note that since the Bag is created from the copy, checksums are generated for the copies, not the original files.
     * The option to define a list of "shortcuts" (i.e., links to directories) that appear in the file chooser dialog box.
@@ -57,7 +58,6 @@ Clicking on "OK" will take the user back to the startup window:
 
 * Compile the utility into native Windows, OS X, and Linux binaries, at which point the utility will be invoked like any other Graphical User Interface application on those operating systems.
 * Add better error handling (e.g., options for going back to main application window on Bag creation error, etc.).
-* Add the ability to capture environment variables such as current user for use in BagIt tags.
 * Add error logging, with log path as a configuration option.
 
 Pull requests implementing these features are welcome.
