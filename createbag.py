@@ -1,9 +1,5 @@
 """
 Simple GUI tool to create a Bag from a filesystem folder.
-
-@todo:
-  - Have errors at calls to bagit and copying into 'create_bag_in'
-    value be displayed as an error dialog to user.
 """
 
 import ConfigParser
@@ -79,7 +75,13 @@ class FolderChooserWindow(Gtk.Window):
                     shutil.rmtree(bag_dir, True)
                     shutil.copytree(folder_picker_dialog.get_filename(), bag_dir)
                 except (IOError, os.error) as shutilerror:
-                    print "There has been an error: %s" % str(shutilerror)
+                    error_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.ERROR,
+                        Gtk.ButtonsType.OK, "Sorry, there has been an error")
+                    error_dialog.format_secondary_text(str(shutilerror) + 
+                        "\n\n" + "Clicking 'OK' will exit the program")
+                    error_dialog.run()
+                    error_dialog.destroy()
+                    raise SystemExit
 
             # If it's not set, create the Bag in the selected directory.
             else:
@@ -88,7 +90,13 @@ class FolderChooserWindow(Gtk.Window):
             try:
                 bag = bagit.make_bag(bag_dir, bagit_tags, 1, bagit_checksums)
             except (bagit.BagError, Exception) as e:
-                print "There has been an error: %s" % str(e)
+                error_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.ERROR,
+                    Gtk.ButtonsType.OK, "Sorry, there has been an error")
+                error_dialog.format_secondary_text(str(e) +
+                    "\n\n" + "Clicking 'OK' will exit the program")
+                error_dialog.run()
+                error_dialog.destroy()
+                raise SystemExit
 
             confirmation_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO,
             Gtk.ButtonsType.OK, "Bag created")
