@@ -26,7 +26,7 @@ This utility is not a replacement for full-featured tool such as the Library of 
 
 ## Usage
 
-Command line usage is provided here. However, it is possible on both Linux and Windows to create shortcuts, which would allow end users to start the program by doubleclicking on an icon.
+Command line usage is documented here. However, it is possible on both Linux and Windows to create operating-system-specific shortcuts, which would allow end users to start the program by clicking or double clicking on an icon.
 
 Invoke the utility from the command line like this:
 
@@ -34,7 +34,7 @@ Invoke the utility from the command line like this:
 
 Create Bag allows you to specify which configuration file to use, as a command-line argument. If run as above, with no argument, the script looks for the file 'config.cfg' in the same directory as the script. To indicate another location for the configuration file, run the script with the file's path as an argument, like this:
 
-`python createbag.py /path/to/config/file`
+`python createbag.py /path/to/config.file`
 
 When the utility starts, a small window with two buttons appears:
 
@@ -56,3 +56,7 @@ Clicking on "OK" will take the user back to the startup window:
 
 * Compile the utility into native Windows, OS X, and Linux binaries, at which point the utility will be invoked like any other Graphical User Interface application on those operating systems.
 * Add better error handling (e.g., options for going back to main application window, etc.).
+
+## License
+
+The Unlicense (http://unlicense.org/). Refer to the LICENSE file for more information.
