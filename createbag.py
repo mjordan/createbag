@@ -25,6 +25,12 @@ tags = config.options('Tags')
 for tag in tags:
     bagit_tags[tag] = config.get('Tags', tag)
 
+# Get shortcuts from config file.
+if config.has_option('Shortcuts', 'shortcuts'):
+    filechooser_shortcuts = [shortcut.strip() for shortcut in config.get('Shortcuts', 'shortcuts').split(',')]
+else:
+    filechooser_shortcuts = []
+
 # Get checksum algorithms from config file.
 bagit_checksums = []
 if config.has_option('Checksums', 'algorithms'):
@@ -59,6 +65,9 @@ class FolderChooserWindow(Gtk.Window):
             "Create Bag", Gtk.ResponseType.OK))
         folder_picker_dialog.set_default_size(800, 400)
         folder_picker_dialog.set_create_folders(False)
+        for filechooser_shortcut in filechooser_shortcuts:
+            print filechooser_shortcut
+            folder_picker_dialog.add_shortcut_folder(filechooser_shortcut)
 
         response = folder_picker_dialog.run()
 
