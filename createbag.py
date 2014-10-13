@@ -2,8 +2,8 @@
 Simple GUI tool to create a Bag from a filesystem folder.
 
 @todo:
-  - Add error handling around the call to bagit and copying
-    into 'create_bag_in' value.
+  - Have errors at calls to bagit and copying into 'create_bag_in'
+    value be displayed as an error dialog to user.
 """
 
 import ConfigParser
@@ -75,13 +75,21 @@ class FolderChooserWindow(Gtk.Window):
             if config.has_option('Other', 'create_bag_in'):
                 relativized_picker_path = os.path.relpath(folder_picker_dialog.get_filename(), '/')
                 bag_dir = os.path.join(config.get('Other', 'create_bag_in'), relativized_picker_path)
-                shutil.rmtree(bag_dir, True)
-                shutil.copytree(folder_picker_dialog.get_filename(), bag_dir)
+                try:
+                    shutil.rmtree(bag_dir, True)
+                    shutil.copytree(folder_picker_dialog.get_filename(), bag_dir)
+                except (IOError, os.error) as shutilerror:
+                    print "There has been an error: %s" % str(shutilerror)
+
             # If it's not set, create the Bag in the selected directory.
             else:
                 bag_dir = folder_picker_dialog.get_filename()
 
-            bag = bagit.make_bag(bag_dir, bagit_tags, 1, bagit_checksums)
+            try:
+                bag = bagit.make_bag(bag_dir, bagit_tags, 1, bagit_checksums)
+            except (bagit.BagError, Exception) as e:
+                print "There has been an error: %s" % str(e)
+
             confirmation_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO,
             Gtk.ButtonsType.OK, "Bag created")
             confirmation_dialog.format_secondary_text(
