@@ -4,11 +4,12 @@ A simple utility to allow users to create a Bag from a directory on their file s
 
 This utility is not a replacement for full-featured tool such as the Library of Congress's Bagger (included in their [Transfer Tools](http://sourceforge.net/projects/loc-xferutils/files/loc-bagger/)). Instead, its purpose is to hide the details of creating a Bag from a filesystem directory from the end user providing a simple, familiar user interface. Settings for Bag creation are contained in a configuration file (that would be modified by an administrator, for example).
 
-## Features so far
+## Features
 
-* Runs on Linux and Windows (after installation of prerequisites). Will likely run on OS X as well (testers welcome).
+* Runs on Linux and Windows (after installation of prerequisites). Will likely run on OS X as well - testers welcome.
 * Uses standard Graphical User Interface file/directory picker to allow user to select which directory to create Bag from.
 * Configuration options:
+    * Definition of the title of the main application window
     * Definition of BagIt tags
     * Choice of checksum algorithms (md5, sha1, sha256, and sha512)
     * The option to copy the contents of the selected directory to specific destination directory before creating the Bag. Note that since the Bag is created from the copy, checksums are generated for the copies, not the original files.
@@ -53,4 +54,4 @@ Clicking on "OK" will take the user back to the startup window:
 ## To do
 
 * Compile the utility into native Windows, OS X, and Linux binaries, at which point the utility will be invoked like any other Graphical User Interface application on those operating systems.
-* Add better error handling.
+* Add better error handling (e.g., options for going back to main application window, etc.).

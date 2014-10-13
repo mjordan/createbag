@@ -37,7 +37,7 @@ else:
 class FolderChooserWindow(Gtk.Window):
 
     def __init__(self):
-        Gtk.Window.__init__(self, title="Create a Bag")
+        Gtk.Window.__init__(self, title = config.get('Other', 'main_window_title', 'Creata a Bag'))
         self.set_border_width(10)
         self.move(200, 200)
 
