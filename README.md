@@ -31,7 +31,18 @@ Create Bag allows you to specify which configuration file to use, as an argument
 
 `python createbag.py /path/to/config/file`
 
-You should see a small window with two buttons. Clicking on the "Choose a directory to create Bag from" will open up a standard file/directory chooser dialog box. Choose a directory and click on "Create Bag".
+You should see a small window with two buttons:
+
+![Create a Bag](https://dl.dropboxusercontent.com/u/1015702/linked_to/createbag/createbag.png)
+
+Clicking on the "Choose a directory to create Bag from" will open up a standard file/directory chooser dialog box:
+
+![Choose a directory](https://dl.dropboxusercontent.com/u/1015702/linked_to/createbag/choosefolder.png)
+
+Choose a directory and click on "Create Bag":
+
+![Bag created](https://dl.dropboxusercontent.com/u/1015702/linked_to/createbag/bagcreated.png)
+
 
 Both Linux and Windows allows the creation of shortcuts, so end users can just doubleclick on an icon to invoke Create Bag.
 
