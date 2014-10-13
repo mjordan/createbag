@@ -19,7 +19,7 @@ if len(sys.argv) > 1:
 else:
     config_file = './config.cfg'
 
-config = ConfigParser.ConfigParser()
+config = ConfigParser.ConfigParser({'add_source_directory_tag': False})
 config.optionxform = str
 config.read(config_file)
 
@@ -67,7 +67,7 @@ class FolderChooserWindow(Gtk.Window):
         response = folder_picker_dialog.run()
 
         if response == Gtk.ResponseType.OK:
-            if config.getboolean('Other', 'add_source_directory_tag', False):
+            if config.getboolean('Other', 'add_source_directory_tag'):
                 bagit_tags['Source-Directory'] = folder_picker_dialog.get_filename()
 
             # If the 'create_bag_in' config option is set, create the Bag from a
