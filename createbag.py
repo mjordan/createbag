@@ -11,13 +11,6 @@ import bagit
 import platform
 if platform.system() != 'Darwin':
     from gi.repository import Gtk
-    def GtkError():
-        error_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.ERROR,
-            Gtk.ButtonsType.OK, "Sorry...")
-        error_dialog.format_secondary_text(not_allowed_message)
-        error_dialog.run()
-        error_dialog.destroy()
-        raise SystemExit
 else:
     # Sets up Cocoadialog for error message popup on OSX
     class errorPopup():
@@ -41,7 +34,7 @@ if platform.system() != 'Darwin':
         config_file = sys.argv[1]
     else:
         config_file = './config.cfg'
-else
+else:
     if len(sys.argv) > 2:
         config_file = sys.argv[2]
     else:
@@ -74,19 +67,18 @@ else:
 
 # Don't let the utility create a Bag in its own directory.
 def directoryCheck(chosenFolder):
-    not_allowed_message = "\n\nYou are not allowed to run the program on that directory."
     if config.has_option('Other', 'create_bag_in'):
         relativized_picker_path = os.path.relpath(chosenFolder, '/')
         bag_dir = os.path.join(config.get('Other', 'create_bag_in'), relativized_picker_path)
         if os.path.dirname(os.path.realpath(__file__)) == bag_dir:
             if platform.system() != 'Darwin':
-                GtkError()
+                FolderChooserWindow.GtkError(win)
             else:
                 errorPopup()
     else:
         if os.path.dirname(os.path.realpath(__file__)) == chosenFolder:
             if platform.system() != 'Darwin':
-                GtkError()
+                FolderChooserWindow.GtkError(win)
             else:
                 errorPopup()
 
@@ -107,7 +99,7 @@ def makeBag(chosenFolder):
             shutil.copytree(chosenFolder, bag_dir)
         except (IOError, os.error) as shutilerror:
             if platform.system() != 'Darwin':
-                GtkError()
+                FolderChooserWindow.GtkError(win)
             else:
                 errorPopup()
 
@@ -115,11 +107,12 @@ def makeBag(chosenFolder):
     else:
         bag_dir = chosenFolder
 
+    print bag_dir
     try:
         bag = bagit.make_bag(bag_dir, bagit_tags, 1, bagit_checksums)
     except (bagit.BagError, Exception) as e:
         if platform.system() != 'Darwin':
-            GtkError()
+            FolderChooserWindow.GtkError(win)
         else:
             errorPopup()
 
@@ -142,6 +135,15 @@ if platform.system() != 'Darwin':
             quit_button = Gtk.Button("Quit")
             quit_button.connect("clicked", Gtk.main_quit)
             box.add(quit_button)
+
+        def GtkError(self):
+            not_allowed_message = "\n\nYou are not allowed to run the program on that directory."
+            error_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.ERROR,
+                Gtk.ButtonsType.OK, "Sorry...")
+            error_dialog.format_secondary_text(not_allowed_message)
+            error_dialog.run()
+            error_dialog.destroy()
+            raise SystemExit
 
         def on_folder_clicked(self, widget):
             folder_picker_dialog = Gtk.FileChooserDialog(
@@ -182,4 +184,8 @@ else:
     directoryCheck(sys.argv[1])
     makeBag(sys.argv[1])
     # need to add confirmation dialog on OSX
-    
+
+try:
+    shutil.rmtree('/tmp/createbag')
+except:
+    pass
