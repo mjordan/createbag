@@ -68,7 +68,7 @@ Unzip (or git clone) to ~/.createbag. Then, create a new Service in the OSX Auto
 
     for f in "$@"
     do
-    python ~/.createbag/createbag.py $f ~/createbag/config.cfg
+    python ~/.createbag/createbag.py $f ~/.createbag/config.cfg
     done
 
 Save the Service with a name like "Create Bag". You can then create a bag using this script by right-clicking on any folder in your Finder and selecting "Create Bag" from the context menu.

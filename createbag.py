@@ -23,17 +23,17 @@ else:
     class errorPopup():
 
     # Change CD_BASE to reflect the location of Cocoadialog on your system
-    CD_BASE = "~/.createbag/"
-    CD_PATH = os.path.join(CD_BASE, "CocoaDialog.app/Contents/MacOS/CocoaDialog")
+        CD_BASE = "~/.createbag/"
+        CD_PATH = os.path.join(CD_BASE, "CocoaDialog.app/Contents/MacOS/CocoaDialog")
 
-    def __init__(self, title="Error", message="Sorry, you can't create a bag here -- you may want to change the config file so that bags are always created in a different output directory, rather than in situ.", button="OK"):
-        template = "%s msgbox --title '%s' --text '%s' --button1 '%s'"
-        self.pipe = os.popen(template % (ErrorPopup.CD_PATH, title, message, button), "w")
-        if popup == "1":
-            popup.close()
+        def __init__(self, title="Error", message="Sorry, you can't create a bag here -- you may want to change the config file so that bags are always created in a different output directory, rather than in situ.", button="OK"):
+            template = "%s msgbox --title '%s' --text '%s' --button1 '%s'"
+            self.pipe = os.popen(template % (ErrorPopup.CD_PATH, title, message, button), "w")
+            if popup == "1":
+                popup.close()
         
-        if __name__ == "__main__":
-            popup = errorPopup
+            if __name__ == "__main__":
+                popup = errorPopup
 
 # Get config file location and parse the file.
 if platform.system() != 'Darwin':
