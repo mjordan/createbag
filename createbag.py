@@ -115,6 +115,7 @@ def makeBag(chosenFolder):
             FolderChooserWindow.GtkError(win)
         else:
             errorPopup()
+    return bag_dir
 
 
 if platform.system() != 'Darwin':
@@ -161,7 +162,7 @@ if platform.system() != 'Darwin':
 
             if response == Gtk.ResponseType.OK:
                 directoryCheck(folder_picker_dialog.get_filename())
-                makeBag(folder_picker_dialog.get_filename())
+                bag_dir = makeBag(folder_picker_dialog.get_filename())
 
                 confirmation_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO,
                 Gtk.ButtonsType.OK, "Bag created")
