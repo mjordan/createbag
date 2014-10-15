@@ -21,12 +21,13 @@ else:
 
         def __init__(self, title="Error", message="Sorry, you can't create a bag here -- you may want to change the config file so that bags are always created in a different output directory, rather than in situ.", button="OK"):
             template = "%s msgbox --title '%s' --text '%s' --button1 '%s'"
-            self.pipe = os.popen(template % (ErrorPopup.CD_PATH, title, message, button), "w")
+            self.pipe = os.popen(template % (errorPopup.CD_PATH, title, message, button), "w")
+    
+    def cocoaError():    
+        if __name__ == "__main__":
+            popup = errorPopup()
             if popup == "1":
                 popup.close()
-        
-            if __name__ == "__main__":
-                popup = errorPopup
 
 # Get config file location and parse the file.
 if platform.system() != 'Darwin':
@@ -66,7 +67,7 @@ else:
 
 
 # Don't let the utility create a Bag in its own directory.
-def directoryCheck(chosenFolder):
+def directory_check(chosenFolder):
     if config.has_option('Other', 'create_bag_in'):
         relativized_picker_path = os.path.relpath(chosenFolder, '/')
         bag_dir = os.path.join(config.get('Other', 'create_bag_in'), relativized_picker_path)
@@ -74,15 +75,15 @@ def directoryCheck(chosenFolder):
             if platform.system() != 'Darwin':
                 FolderChooserWindow.GtkError(win)
             else:
-                errorPopup()
+                cocoaError()
     else:
         if os.path.dirname(os.path.realpath(__file__)) == chosenFolder:
             if platform.system() != 'Darwin':
                 FolderChooserWindow.GtkError(win)
             else:
-                errorPopup()
+                cocoaError()
 
-def makeBag(chosenFolder):
+def make_bag(chosenFolder):
     if config.getboolean('Other', 'add_source_directory_tag'):
         bagit_tags['Source-Directory'] = chosenFolder
 
@@ -101,20 +102,19 @@ def makeBag(chosenFolder):
             if platform.system() != 'Darwin':
                 FolderChooserWindow.GtkError(win)
             else:
-                errorPopup()
+                cocoaError()
 
     # If it's not set, create the Bag in the selected directory.
     else:
         bag_dir = chosenFolder
 
-    print bag_dir
     try:
         bag = bagit.make_bag(bag_dir, bagit_tags, 1, bagit_checksums)
     except (bagit.BagError, Exception) as e:
         if platform.system() != 'Darwin':
             FolderChooserWindow.GtkError(win)
         else:
-            errorPopup()
+            cocoaError()
     return bag_dir
 
 
@@ -161,8 +161,8 @@ if platform.system() != 'Darwin':
             response = folder_picker_dialog.run()
 
             if response == Gtk.ResponseType.OK:
-                directoryCheck(folder_picker_dialog.get_filename())
-                bag_dir = makeBag(folder_picker_dialog.get_filename())
+                directory_check(folder_picker_dialog.get_filename())
+                bag_dir = make_bag(folder_picker_dialog.get_filename())
 
                 confirmation_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO,
                 Gtk.ButtonsType.OK, "Bag created")
@@ -182,8 +182,8 @@ if platform.system() != 'Darwin':
     Gtk.main()
     
 else:
-    directoryCheck(sys.argv[1])
-    makeBag(sys.argv[1])
+    directory_check(sys.argv[1])
+    make_bag(sys.argv[1])
     # need to add confirmation dialog on OSX
 
 try:
