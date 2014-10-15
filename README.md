@@ -6,7 +6,7 @@ This utility is not a replacement for a full-featured tool such as the Library o
 
 ## Features
 
-* Runs on Linux and Windows (after installation of prerequisites). Will likely run on OS X as well - testers welcome.
+* Runs on Linux and Windows (after installation of prerequisites). OSX port is brand new and may still have some bugs.
 * Uses standard Graphical User Interface file/directory browser to allow user to select which directory to create Bag from.
 * Configuration options:
     * The ability to specify which configuration file to use (as a command-line parameter)
@@ -28,10 +28,13 @@ This last option, the 'create_bag_in' configuration option, is important. If thi
 * [Python GTK+3](http://python-gtk-3-tutorial.readthedocs.org/en/latest/index.html)
     * On Linux, Python bindings for GTK+3 should already be installed
     * On Windows, install the latest version from http://sourceforge.net/projects/pygobjectwin32/files/?source=navbar. When asked which packages to install, choose GTK+. No other packages in this distribution are necessary for Create Bag to run.
+	* On OSX, this isn't used.
 * [bagit](https://github.com/LibraryOfCongress/bagit-python)
-    * On all platforms, install with `pip install bagit` 
+    * On all platforms, install with `pip install bagit` (you may need to do easy_install pip first on OSX if it's your first time adding Python packages)
 
 ## Usage
+
+#### Linux / Windows
 
 Command line usage is documented here. However, it is possible on both Linux and Windows to create operating-system-specific shortcuts, allowing end users to start the program by clicking or double clicking on a desktop icon.
 
@@ -58,6 +61,17 @@ Choosing a directory and clicking on "Create Bag" will create the Bag, after whi
 Clicking on "OK" will take the user back to the startup window:
 
 ![Create a Bag](https://dl.dropboxusercontent.com/u/1015702/linked_to/createbag/createbag.png)
+
+#### OSX
+
+Unzip (or git clone) to ~/.createbag. Then, create a new Service in the OSX Automator that is designated to receive *folders* in the *Finder*. This Service should perform a single action: "Run Shell Script," using /bin/bash, with the "Pass input" drop-down set to "as arguments". Use this syntax for the Service:
+
+    for f in "$@"
+    do
+    python ~/.createbag/createbag.py $f ~/createbag/config.cfg
+    done
+
+Save the Service with a name like "Create Bag". You can then create a bag using this script by right-clicking on any folder in your Finder and selecting "Create Bag" from the context menu.
 
 ## To do
 
