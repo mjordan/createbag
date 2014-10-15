@@ -13,9 +13,13 @@ This utility is not a replacement for a full-featured tool such as the Library o
     * Definition of custom BagIt tags
     * Options to enable some auto-generated BagIt tags (currently Source-Directory and Source-User)
     * Choice of checksum algorithms (md5, sha1, sha256, and sha512)
-    * The option to copy the contents of the selected directory to specific destination directory before creating the Bag. Note that since the Bag is created from the copy, checksums are generated for the copies, not the original files.
     * The option to define a list of "shortcuts" (i.e., links to directories) that appear in the file chooser dialog box.
-    * The ability to specify which configuration file to use
+    * The ability to specify which configuration file to use (as a command-line parameter)
+
+An important option is 'create_bag_in'. If this is not set, the Bag is created in the selected directory and its contents are rearranged into a Bag structure. The value of this option is set to '/tmp' by default; *Windows users will need to set it manually before running the utility.*
+
+
+to copy the contents of the selected directory to specific destination directory before creating the Bag. Note that since the Bag is created from the copy, checksums are generated for the copies, not the original files.
 
 ## Dependencies
 
