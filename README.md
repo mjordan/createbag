@@ -17,7 +17,7 @@ This utility is not a replacement for a full-featured tool such as the Library o
     * The option to define a list of "shortcuts" (i.e., links to directories) that appear in the file chooser dialog box.
     * The option to copy the contents of the selected directory to specific destination directory before creating the Bag. Note that since the Bag is created from the copy, checksums are generated for the copies, not the original files.
 
-This last option, the 'create_bag_in' option, is important. If this is not set, the Bag is created in the directory selected by theuser and its contents are rearranged into a Bag structure. The value of this option is set to '/tmp' by default; *Windows users will need to set it manually before running the utility.*
+This last option, the 'create_bag_in' configuration option, is important. If this is not set, the Bag is created in the directory selected by the user and its contents are rearranged into a Bag structure. The value of this option is set to '/tmp' by default; *Windows users will need to set it manually before running the utility.*
 
 
 
