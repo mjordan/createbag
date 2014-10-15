@@ -74,6 +74,27 @@ class FolderChooserWindow(Gtk.Window):
         response = folder_picker_dialog.run()
 
         if response == Gtk.ResponseType.OK:
+            # Don't let the utility create a Bag in its own directory.
+            not_allowed_message = "\n\nYou are not allowed to run the program on that directory."
+            if config.has_option('Other', 'create_bag_in'):
+                relativized_picker_path = os.path.relpath(folder_picker_dialog.get_filename(), '/')
+                bag_dir = os.path.join(config.get('Other', 'create_bag_in'), relativized_picker_path)
+                if os.path.dirname(os.path.realpath(__file__)) == bag_dir:
+                    error_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.ERROR,
+                        Gtk.ButtonsType.OK, "Sorry...")
+                    error_dialog.format_secondary_text(not_allowed_message)
+                    error_dialog.run()
+                    error_dialog.destroy()
+                    raise SystemExit
+            else:
+                if os.path.dirname(os.path.realpath(__file__)) == folder_picker_dialog.get_filename():
+                    error_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.ERROR,
+                        Gtk.ButtonsType.OK, "Sorry...")
+                    error_dialog.format_secondary_text(not_allowed_message)
+                    error_dialog.run()
+                    error_dialog.destroy()
+                    raise SystemExit
+
             if config.getboolean('Other', 'add_source_directory_tag'):
                 bagit_tags['Source-Directory'] = folder_picker_dialog.get_filename()
 
