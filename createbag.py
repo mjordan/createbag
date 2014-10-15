@@ -28,6 +28,7 @@ else:
             popup = cocoaPopup("Error","Sorry, you can't create a bag here -- you may want to change the config file so that bags are always created in a different output directory, rather than in situ.","OK")
             if popup == "1":
                 popup.close()
+                sys.exit()
                 
     def cocoaSuccess(bag_dir):    
         if __name__ == "__main__":
