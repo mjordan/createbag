@@ -13,19 +13,25 @@ if platform.system() != 'Darwin':
     from gi.repository import Gtk
 else:
     # Sets up Cocoadialog for error message popup on OSX
-    class errorPopup():
+    class cocoaPopup:
 
     # Change CD_BASE to reflect the location of Cocoadialog on your system
         CD_BASE = "~/.createbag/"
         CD_PATH = os.path.join(CD_BASE, "CocoaDialog.app/Contents/MacOS/CocoaDialog")
 
-        def __init__(self, title="Error", message="Sorry, you can't create a bag here -- you may want to change the config file so that bags are always created in a different output directory, rather than in situ.", button="OK"):
+        def __init__(self, title, message, button):
             template = "%s msgbox --title '%s' --text '%s' --button1 '%s'"
-            self.pipe = os.popen(template % (errorPopup.CD_PATH, title, message, button), "w")
+            self.pipe = os.popen(template % (cocoaPopup.CD_PATH, title, message, button), "w")
     
     def cocoaError():    
         if __name__ == "__main__":
-            popup = errorPopup()
+            popup = cocoaPopup("Error","Sorry, you can't create a bag here -- you may want to change the config file so that bags are always created in a different output directory, rather than in situ.","OK")
+            if popup == "1":
+                popup.close()
+                
+    def cocoaSuccess(bag_dir):    
+        if __name__ == "__main__":
+            popup = cocoaPopup("Success!","Bag created at %s" % bag_dir,"OK")
             if popup == "1":
                 popup.close()
 
@@ -161,7 +167,9 @@ if platform.system() != 'Darwin':
             response = folder_picker_dialog.run()
 
             if response == Gtk.ResponseType.OK:
+
                 directory_check(folder_picker_dialog.get_filename())
+
                 bag_dir = make_bag(folder_picker_dialog.get_filename())
 
                 confirmation_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO,
@@ -183,10 +191,10 @@ if platform.system() != 'Darwin':
     
 else:
     directory_check(sys.argv[1])
-    make_bag(sys.argv[1])
-    # need to add confirmation dialog on OSX
+    bag_dir = make_bag(sys.argv[1])
+    cocoaSuccess(bag_dir)
 
-try:
-    shutil.rmtree('/tmp/createbag')
-except:
-    pass
+#try:
+#    shutil.rmtree('/tmp/createbag')
+#except:
+#    pass
