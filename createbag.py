@@ -194,8 +194,3 @@ else:
     directory_check(sys.argv[1])
     bag_dir = make_bag(sys.argv[1])
     cocoaSuccess(bag_dir)
-
-#try:
-#    shutil.rmtree('/tmp/createbag')
-#except:
-#    pass
