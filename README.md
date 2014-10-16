@@ -7,7 +7,7 @@ This utility is not a replacement for a full-featured tool such as the Library o
 ## Features
 
 * Runs on Linux and Windows (after installation of prerequisites). OSX port is brand new and may still have some bugs.
-* Uses standard Graphical User Interface file/directory browser to allow user to select which directory to create Bag from.
+* On Linux and Windows, uses standard Graphical User Interface file/directory browser to allow user to select which directory to create Bag from; on OSX, shows up as an option in the Finder context menu.
 * Configuration options:
     * The ability to specify which configuration file to use (as a command-line parameter)
     * Definition of the title of the main application window and the file chooser window title
