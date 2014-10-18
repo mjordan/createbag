@@ -10,7 +10,7 @@ import getpass
 import bagit
 import platform
 if platform.system() != 'Darwin':
-    # We don't use Gtk on OS X.
+    # We don't use Gtk on OSX.
     from gi.repository import Gtk
 else:
     # Sets up Cocoadialog for error message popup on OSX.
@@ -38,7 +38,7 @@ else:
                     popup.close()
 
 # Under Linux and Windows, config file location is first command-line parameter.
-# Under OS X, the input directory is the first, the config file is the second.
+# Under OSX, the input directory is the first, the config file is the second.
 if platform.system() != 'Darwin':
     if len(sys.argv) > 1:
         config_file = sys.argv[1]
@@ -129,7 +129,7 @@ def make_bag(chosen_folder):
             cocoaError()
     return bag_dir
 
-# Code within this if block only applies to Linux and Windows, not OS X.
+# Code within this if block only applies to Linux and Windows, not OSX.
 if platform.system() != 'Darwin':
     class FolderChooserWindow(Gtk.Window):
 
@@ -188,7 +188,7 @@ if platform.system() != 'Darwin':
     win.show_all()
     Gtk.main()
     
-# OS X-specific code.
+# OSX-specific code.
 else:
     directory_check(sys.argv[1])
     bag_dir = make_bag(sys.argv[1])
