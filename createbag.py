@@ -140,6 +140,7 @@ if platform.system() != 'Darwin':
 
             box = Gtk.Box(spacing=6)
             self.add(box)
+            self.spinner = Gtk.Spinner()
        
             choose_folder_button = Gtk.Button("Choose a folder to create Bag from")
             choose_folder_button.connect("clicked", self.on_folder_clicked)
@@ -174,14 +175,15 @@ if platform.system() != 'Darwin':
             if response == Gtk.ResponseType.OK:
                 directory_check(folder_picker_dialog.get_filename())
                 bag_dir = make_bag(folder_picker_dialog.get_filename())
-                confirmation_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO,
-                Gtk.ButtonsType.OK, "Bag created")
-                confirmation_dialog.format_secondary_text(
-                    "The Bag for folder %s has been created." % bag_dir)
-                confirmation_dialog.run()
-                confirmation_dialog.destroy()
+                folder_picker_dialog.destroy()
 
-            folder_picker_dialog.destroy()
+                if (bag_dir):
+                    confirmation_dialog = Gtk.MessageDialog(self, 0, Gtk.MessageType.INFO,
+                        Gtk.ButtonsType.OK, "Bag created")
+                    confirmation_dialog.format_secondary_text(
+                        "The Bag for folder %s has been created." % bag_dir)
+                    confirmation_dialog.run()
+                    confirmation_dialog.destroy()
 
     win = FolderChooserWindow()
     win.connect("delete-event", Gtk.main_quit)
