@@ -162,17 +162,17 @@ if platform.system() != 'Darwin':
         def on_folder_clicked(self, widget):
             folder_picker_dialog = Gtk.FileChooserDialog(
                 config.get('UILabels', 'file_chooser_window_title', 'Create a Bag - Choose a folder to create Bag from'),
-                self, Gtk.FileChooserAction.SELECT_FOLDER,
-                (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                "Create Bag", Gtk.ResponseType.OK))
+                self, Gtk.FileChooserAction.SELECT_FOLDER)
             folder_picker_dialog.set_default_size(800, 400)
             folder_picker_dialog.set_create_folders(False)
+            folder_picker_dialog.add_button("Create Bag", -5)
+            folder_picker_dialog.add_button("Cancel", -6)
             for filechooser_shortcut in filechooser_shortcuts:
                 folder_picker_dialog.add_shortcut_folder(filechooser_shortcut)
 
             response = folder_picker_dialog.run()
 
-            if response == Gtk.ResponseType.OK:
+            if response == -5:
                 directory_check(folder_picker_dialog.get_filename())
                 bag_dir = make_bag(folder_picker_dialog.get_filename())
                 folder_picker_dialog.destroy()
@@ -184,6 +184,8 @@ if platform.system() != 'Darwin':
                         "The Bag for folder %s has been created." % bag_dir)
                     confirmation_dialog.run()
                     confirmation_dialog.destroy()
+            if response == -6:
+                folder_picker_dialog.destroy()
 
     win = FolderChooserWindow()
     win.connect("delete-event", Gtk.main_quit)
